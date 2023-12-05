@@ -12,6 +12,7 @@ Data files required
 
 Notes:
 The file with all of the uORF candidates can be found in Data Files > ltdstart_uorf_no_overlap.csv.
+
 ltdstart_uorf_no_overlap.csv: 
 -   Mouse APPRIS transcript
 -	Start: ["ATG", "ACG", "ATT", "CTG", "GTG", "TTG"]
@@ -55,7 +56,7 @@ Data files:
     - Sequences in CAPITAL LETTERS
     - like *appris_mouse_v2_selected.fa.gz*
 
-Notes: ADD
+Notes: This program adds additional information to an file containing uORFs. The added informations is: the transcript name, the Kozak sequence, the nucleotide sequence, the complete sequence (the sequence from the start of the transcript until right before the stop codon), the amino acid sequence, and the CDS start and stop sites.
 
  ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 **transcript2genome.py**
