@@ -1,38 +1,103 @@
 # uORF_Analysis
 
 **all_uorfs_FINAL.py**
+
 Data files required
 - Transcript file:
-    - in fa.gz file format
+    - in Fasta GZ file format
     - Genetic sequences should be preceded with gene information formatted as: *>**ENSMUST00000070533.4**|ENSMUSG00000051951.5|OTTMUSG00000026353.2|OTTMUST00000065166.1|**Xkr4-201**|Xkr4|3634|**UTR5:1-150**|**CDS:151-2094**|UTR3:2095-3634|*
     - Sequences in CAPITAL LETTERS
     - like *appris_mouse_v2_selected.fa.gz*
 
+Notes:
+The file with all of the uORF candidates can be found in Data Files > ltdstart_uorf_no_overlap.csv.
+ltdstart_uorf_no_overlap.csv: 
+-   Mouse APPRIS transcript
+-	Start: ["ATG", "ACG", "ATT", "CTG", "GTG", "TTG"]
+-	Stop: ["TAA", "TGA", "TAG"]
+-	Length range: 33-300 nucleotides (10-99 AA)
+  
+If you want to change the start codons, stop codons, or length range, you will need to run Code > all_uorfs_FINAL.py. Edit the start and stop codons in find_uORFS(), and edit the length when write_uORFS() is called at the bottom of the program. Make sure to have the correct path to the APPRIS Fasta GZ file – the APPRIS file can be found in Data Files. 
+
 **count_reads.py**
+
 Data files:
 - A .ribo ribosome profiling file with coverage data
     - Example .ribo files found in **Data Files**
-      
+
+Notes: 
+This is the program for compiling the reads for all of the uORFs, and the code to run it is found at the bottom of the program file. Make sure to update the ribo_path variable. To run the function, you have two arguments: 
+1)	File – this is ltdstart_uorf_no_overlap.csv or the outputted file from all_uorfs_FINAL.py
+2)	Outfile – this is the name of the outputted csv file – e.g. “neural_reads.csv”
+
 **filter_uorfs_FINAL.R**
 
+Notes: This program filters the reads results by CPM and start codon (with an ATG preference), and this program is run in _RStudio_. The You will have two arguments:
+
 **check_periodicity.py**
+
+Notes: This program determines the periodicity output, and the code to run it is found at the bottom of the program file.You have three arguments:
+1) The csv file from the preceding R Script 
+2) The name of the complete csv output file (periodicity results for all inputted uORFs)
+3) The accepted csv output file (periodicity results for the uORFs with p < 0.05).
+
 **format_uorfs.py**
+
 Data files:
 - Transcript file:
-    - in fa.gz file format
+    - in Fasta GZ file format
     - Genetic sequences should be preceded with gene information formatted as: *>**ENSMUST00000070533.4**|ENSMUSG00000051951.5|OTTMUSG00000026353.2|OTTMUST00000065166.1|**Xkr4-201**|Xkr4|3634|**UTR5:1-150**|**CDS:151-2094**|UTR3:2095-3634|*
     - Sequences in CAPITAL LETTERS
     - like *appris_mouse_v2_selected.fa.gz*
-      
+
+Notes: ADD
 **transcript2genome.py**
+
 Data files:
 - GENCODE GTF file:
     - Transcript names must match the version in the transcript file
     - for *appris_mouse_v2_selected.fa.gz,* use GENCODE vM25 (found at https://www.gencodegenes.org/mouse/release_M25.html)
+- Transcript file:
+    - in Fasta GZ file format
+    - Genetic sequences should be preceded with gene information formatted as: *>**ENSMUST00000070533.4**|ENSMUSG00000051951.5|OTTMUSG00000026353.2|OTTMUST00000065166.1|**Xkr4-201**|Xkr4|3634|**UTR5:1-150**|**CDS:151-2094**|UTR3:2095-3634|*
+    - Sequences in CAPITAL LETTERS
+    - like *appris_mouse_v2_selected.fa.gz*
 
+Notes: This script converts the uORF transcript coordinates to genomic coordinates. 
+
+**Running the genomic overlap comparison**
+
+Data files:
+- GENCODE GTF file:
+    - Transcript names must match the version in the transcript file
+    - for *appris_mouse_v2_selected.fa.gz,* use GENCODE vM25 (found at https://www.gencodegenes.org/mouse/release_M25.html)
+- Transcript file:
+    - in Fasta GZ file format
+    - Genetic sequences should be preceded with gene information formatted as: *>**ENSMUST00000070533.4**|ENSMUSG00000051951.5|OTTMUSG00000026353.2|OTTMUST00000065166.1|**Xkr4-201**|Xkr4|3634|**UTR5:1-150**|**CDS:151-2094**|UTR3:2095-3634|*
+    - Sequences in CAPITAL LETTERS
+    - like *appris_mouse_v2_selected.fa.gz*
+      
+Notes: The genomic comparison only needs to be run on the nonoverlapping uORFs, so filter the uORFs before running the following steps. After converting the uORFs to genomic coordinates, you will need to convert the uORF genomic coordinates into a bed formatted file. I used Notepad++ to do so, and an example BED file can be found in the Data Files > ltdstart_bed.bed. 
+Finally, overlap between GENCODE CDS regions and the identified uORFs can be found using bedtools. The instructions are as follows:
+• Activate a Conda environment with bedtools: 
+   o	conda activate /home/umapaul/anaconda3/envs/bedtools_env
+Run the following in Linux (I used Ubuntu):
+• To get rows of overlap from the Gencode GTF: 
+   o	- bedtools intersect -a "/mnt/c/Users/Uma/Documents/Macbook/LabWork/RiboPy/ribo_analysis/gencode_cds.gtf" -b "/mnt/c/Users/Uma/Documents/Macbook/LabWork/RiboPy/ribo_analysis/ltdstart_bed.bed" > “/mnt/c/Users/Uma/Documents/Macbook/LabWork/RiboPy/ribo_analysis/gtf_overlap.txt”
+• To get rows of overlap from the uORF BED: 
+   o	 - bedtools intersect -u -a "/mnt/c/Users/Uma/Documents/Macbook/LabWork/RiboPy/ribo_analysis/ ltdstart_bed.bed " -b "/mnt/c/Users/Uma/Documents/Macbook/LabWork/RiboPy/ribo_analysis/gencode_cds.gtf" > "/mnt/c/Users/Uma/Documents/Macbook/LabWork/RiboPy/ribo_analysis/uorf_overlap.txt"
+ 
 **uorf_reads_psite.py**
-Data files"
-- Studies csv file for RiboBase:
-    - should include study name, experiment name, and cell line columns
+
+Data files:
+- Studies csv file for RiboBase
+    - should include study name, experiment name, and cell line columns - make sure to edit the specific column names in the script
     - like *mouse_filtered_complete.csv*
 
+Notes: You will need to edit the file to include the correct paths in your TACC environment.  To edit, check all places where file paths are mentioned in the uorf_reads() function; I have put #EDIT comments next to these lines. The function called is located at the bottom of the scripts and requires four inputs:
+1)	Database: The csv containing the studies to be examined
+2)	Transcripts: a csv file with the transcript coordinate of the uORFs; find an example of the format of the file in the Data Files > ltdstart_gene_codons.csv (this csv should have no header)
+3)	Outfile: the path for the output csv file with the Ribobase reads
+4)	Outfile_offset: the path for the output csv file with the p-site offsets for each experiment
+
+To run: Edit the sbatch script in Code > sbatch.sh to include the correct path for your uorf_reads_psite.py file and the correct conda environment. Then, run the job in TACC (I use LS6), using the command: sbatch sbatch.sh. 
