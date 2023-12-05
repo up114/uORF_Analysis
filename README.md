@@ -1,10 +1,15 @@
 # uORF_Analysis
 
+**all_uorfs_FINAL.py**
+Data files required
 - Transcript file:
     - in fa.gz file format
     - Genetic sequences should be preceded with gene information formatted as: *>**ENSMUST00000070533.4**|ENSMUSG00000051951.5|OTTMUSG00000026353.2|OTTMUST00000065166.1|**Xkr4-201**|Xkr4|3634|**UTR5:1-150**|**CDS:151-2094**|UTR3:2095-3634|*
     - Sequences in CAPITAL LETTERS
     - like *appris_mouse_v2_selected.fa.gz*
+
+
+**uorf_functions_FINAL.py**
 - Studies csv file for RiboBase:
     - should include study name, experiment name, and cell line columns
     - like *mouse_filtered_complete.csv*
