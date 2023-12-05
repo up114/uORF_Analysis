@@ -1,5 +1,6 @@
 # uORF_Analysis
 
+ ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 **all_uorfs_FINAL.py**
 
 Data files required
@@ -19,6 +20,7 @@ ltdstart_uorf_no_overlap.csv:
   
 If you want to change the start codons, stop codons, or length range, you will need to run Code > all_uorfs_FINAL.py. Edit the start and stop codons in find_uORFS(), and edit the length when write_uORFS() is called at the bottom of the program. Make sure to have the correct path to the APPRIS Fasta GZ file – the APPRIS file can be found in Data Files. 
 
+ ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 **count_reads.py**
 
 Data files:
@@ -30,10 +32,12 @@ This is the program for compiling the reads for all of the uORFs, and the code t
 1)	File – this is ltdstart_uorf_no_overlap.csv or the outputted file from all_uorfs_FINAL.py
 2)	Outfile – this is the name of the outputted csv file – e.g. “neural_reads.csv”
 
+ ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 **filter_uorfs_FINAL.R**
 
 Notes: This program filters the reads results by CPM and start codon (with an ATG preference), and this program is run in _RStudio_. The You will have two arguments:
 
+ ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 **check_periodicity.py**
 
 Notes: This program determines the periodicity output, and the code to run it is found at the bottom of the program file.You have three arguments:
@@ -41,6 +45,7 @@ Notes: This program determines the periodicity output, and the code to run it is
 2) The name of the complete csv output file (periodicity results for all inputted uORFs)
 3) The accepted csv output file (periodicity results for the uORFs with p < 0.05).
 
+ ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 **format_uorfs.py**
 
 Data files:
@@ -51,6 +56,8 @@ Data files:
     - like *appris_mouse_v2_selected.fa.gz*
 
 Notes: ADD
+
+ ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 **transcript2genome.py**
 
 Data files:
@@ -65,6 +72,7 @@ Data files:
 
 Notes: This script converts the uORF transcript coordinates to genomic coordinates. 
 
+ ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 **Running the genomic overlap comparison**
 
 Data files:
@@ -86,7 +94,8 @@ Run the following in Linux (I used Ubuntu):
    o	- bedtools intersect -a "/mnt/c/Users/Uma/Documents/Macbook/LabWork/RiboPy/ribo_analysis/gencode_cds.gtf" -b "/mnt/c/Users/Uma/Documents/Macbook/LabWork/RiboPy/ribo_analysis/ltdstart_bed.bed" > “/mnt/c/Users/Uma/Documents/Macbook/LabWork/RiboPy/ribo_analysis/gtf_overlap.txt”
 • To get rows of overlap from the uORF BED: 
    o	 - bedtools intersect -u -a "/mnt/c/Users/Uma/Documents/Macbook/LabWork/RiboPy/ribo_analysis/ ltdstart_bed.bed " -b "/mnt/c/Users/Uma/Documents/Macbook/LabWork/RiboPy/ribo_analysis/gencode_cds.gtf" > "/mnt/c/Users/Uma/Documents/Macbook/LabWork/RiboPy/ribo_analysis/uorf_overlap.txt"
- 
+
+ ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 **uorf_reads_psite.py**
 
 Data files:
