@@ -73,7 +73,8 @@ def psite_offset(ribo_object, exp, mmin, mmax):
     p_site = {}
 
     for index, row in df.iterrows():
-        max_value_index = row.iloc[35:41].idxmax()
+        max_value_index = row.iloc[35:41].idxmax() # p-site offsets are restricted to a 11-16 nt range
+        print(row.iloc[35:41])
         offset = -1 * max_value_index + 1
         p_site[index[1]] = offset
 
@@ -243,10 +244,10 @@ def write_periodicity_output(file, complete_outfile, accepted_outfile):
 ribo_path = "neural.ribo"
 
 # to check READS:
-#write_reads_output("ltdstart_uorf_no_overlap.csv", "neural_output_NEW.csv")
+write_reads_output("ltdstart_uorf_no_overlap.csv", "neural_output_NEW.csv")
 
 # to check PERIODICITY:
 #write_periodicity_output("FILTER_OUTPUT.csv", "PERIODICITY_OUTPUT.csv")
-write_periodicity_output("neural_filterNEW.csv", "neural_periodicityTEST.csv", "neural_acceptedTEST.csv")
+#write_periodicity_output("neural_filterNEW.csv", "neural_periodicityTEST.csv", "neural_acceptedTEST.csv")
 
 

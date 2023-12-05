@@ -78,22 +78,14 @@ def psite_offset(ribo_object, exp, mmin, mmax) :
     df = (ribo_object.get_metagene("start", experiments = exp, range_lower= mmin, range_upper= mmax, sum_lengths = False, sum_references = True))
 
     p_site = {}
-    #nt_per = {}
-    # for index, row in df.iterrows() :
-    #     max_value_index = row.iloc[35:41].idxmax()
 
     for index, row in df.iterrows():
-        max_value_index = row.iloc[35:41].idxmax()
+        max_value_index = row.iloc[35:41].idxmax() # p-site offsets are restricted to a 11-16 nt range
         offset = -1 * max_value_index + 1
 
         p_site[index[1]] = offset
-        # ribo_object.plot_metagene("start", title = exp + " " + str(index[1]) + " : " + str(offset), experiments= exp, range_lower=index[1], range_upper=index[1],
-        #                output_file= "/scratch/09369/umapaul/output/" + exp + "_" + str(index[1]) + "_start.png")
-        # np_row = np.array(row)
-        # frame_count = np.sum(np_row[offset % 3 :: 3])
-        # total_count = np.sum(np_row)
-        # nt_per[index[1]] = frame_count * 1.0 / total_count
-    return p_site#, nt_per
+
+    return p_site
 
 def get_region_reads(ribo_object, region, mmin, mmax, experiment) :
     CDS_reads = (ribo_object.get_region_counts(region_name=region,
@@ -122,8 +114,6 @@ def uorf_reads(database, transcripts):
 
     for study in study_dict.keys():
         study_path = ("/scratch/09369/umapaul/data/%s" % study) #EDIT
-        print(str(current) + "/" + str(total) + ": " + str(study))
-        current += 1
 
         if os.path.exists(study_path):
             os.chdir(study_path)
@@ -140,7 +130,6 @@ def uorf_reads(database, transcripts):
                         if read_pct < 0.85:
                             continue
 
-                        # df = r_file.get_coverage(experiment=j, range_lower=mmin, range_upper=mmax, alias=True)
                         CDS_reads = get_region_reads(r_file, "CDS", mmin, mmax, j).add(
                             get_region_reads(r_file, "UTR3_junction", mmin, mmax, j).add(
                                 get_region_reads(r_file, "UTR5_junction", mmin, mmax, j)))
@@ -149,7 +138,6 @@ def uorf_reads(database, transcripts):
                         frame1_reads = {}
                         frame2_reads = {}
                         frame3_reads = {}
-
 
                         for k in range(mmin, (mmax + 1)):
 
@@ -166,7 +154,6 @@ def uorf_reads(database, transcripts):
                                 if (start <= offset[k]):
                                     continue
 
-                                # transcript_info.write(str(ribo_object.transcript_lengths))
                                 try:
                                     coverage = df[gene]  # store the coverage info of the gene
                                     offset_reads = np.sum(coverage[start - offset[k]: stop - offset[k]])
@@ -174,7 +161,6 @@ def uorf_reads(database, transcripts):
 
                                     if (gene, start, stop) in exp_reads.keys():
                                         exp_reads[(gene, start, stop)] += offset_reads
-                                        # inframe_reads[(gene, start, stop)] += inframe_read
                                         frame1_reads[(gene, start, stop)] += np.sum(coverage[start - offset[k]: stop - offset[k]: 3])
                                         frame2_reads[(gene, start, stop)] += np.sum(coverage[start - offset[k] + 1: stop - offset[k]: 3])
                                         frame3_reads[(gene, start, stop)] += np.sum(coverage[start - offset[k] + 2: stop - offset[k]: 3])
@@ -202,13 +188,6 @@ def uorf_reads(database, transcripts):
                                                             frame3_reads[(gene, start, stop)]],
                                                             gene_reads)
 
-                                        # add_dic('In_read reads',
-                                            #         np.sum(gene_cov[starts[i] - offset[k]: stops[i] - offset[k]: 3]),
-                                            #         gene_reads)
-                                            # add_dic('Total reads',
-                                            #         np.sum(gene_cov[starts[i] - offset[k]: stops[i] - offset[k]]),
-                                            #         gene_reads
-
                                 except(KeyError):
                                     continue
 
@@ -218,13 +197,13 @@ def uorf_reads(database, transcripts):
 
 ####writes the analysis results to a CSV file
 # inputs:
-#   database:
-def write_output(database='/scratch/09369/umapaul/data/mouse_filtered_complete.csv',
-                 transcripts='/scratch/09369/umapaul/data/ltdstart_gene_codons.csv',
-                 outfile='/scratch/09369/umapaul/output/ltdstart_output_ribotish.csv',
-                 outfile_offsets = "/scratch/09369/umapaul/output/offset_ltdstart.csv"):
+#   database: a csv file with the studies and experiments that should be analyzed
+#   transcripts: a csv with gene names, start coordinate, and stop coordinate with no header
+#   outfile: output csv file that contains the reads for each experiment
+#   outfile_offsets: output csv file name that contains the p-site offset for each experiment
+def write_output(database, transcripts, outfile, outfile_offsets):
+
     output, offset = uorf_reads(database, transcripts)
-    # to write values as columns
     output = pd.DataFrame.from_dict(output)
     output.to_csv(outfile, index=False)
 
@@ -239,7 +218,7 @@ def write_output(database='/scratch/09369/umapaul/data/mouse_filtered_complete.c
                 for read_length, p_site_offset in data:
                     writer.writerow([experiment, read_length, p_site_offset])
 
-write_output()
-#study_folder('/scratch/09369/umapaul/data/fin_version_database_mouse_only.csv')
+## TO RUN:
+write_output("path/database.csv", "path/transcripts.csv", "path/output.csv", "path/offset.csv")
 
 
