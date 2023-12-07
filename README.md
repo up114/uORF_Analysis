@@ -1,5 +1,8 @@
 # uORF_Analysis
-
+ ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+**Environment**
+- ribo_env.yml: contains the necessary packages for all function other than the genomic overlap comparison
+- bedtools_env.yml: for the genomic overlap comparison (contains bedtools)
  ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 **all_uorfs_FINAL.py**
 
@@ -88,8 +91,8 @@ Data files:
       
 Notes: The genomic comparison only needs to be run on the nonoverlapping uORFs, so filter the uORFs before running the following steps. After converting the uORFs to genomic coordinates, you will need to convert the uORF genomic coordinates into a bed formatted file. I used Notepad++ to do so, and an example BED file can be found in the Data Files > ltdstart_bed.bed. 
 Finally, overlap between GENCODE CDS regions and the identified uORFs can be found using bedtools. The instructions are as follows:
-• Activate a Conda environment with bedtools: 
-   o	conda activate /home/umapaul/anaconda3/envs/bedtools_env
+• Activate a Conda environment with bedtools - see bedtools_env.yml: 
+   o	conda activate bedtools_env
 Run the following in Linux (I used Ubuntu):
 • To get rows of overlap from the Gencode GTF: 
    o	- bedtools intersect -a "/mnt/c/Users/Uma/Documents/Macbook/LabWork/RiboPy/ribo_analysis/gencode_cds.gtf" -b "/mnt/c/Users/Uma/Documents/Macbook/LabWork/RiboPy/ribo_analysis/ltdstart_bed.bed" > “/mnt/c/Users/Uma/Documents/Macbook/LabWork/RiboPy/ribo_analysis/gtf_overlap.txt”
