@@ -95,9 +95,9 @@ Finally, overlap between GENCODE CDS regions and the identified uORFs can be fou
    o	conda activate bedtools_env
 Run the following in Linux (I used Ubuntu):
 • To get rows of overlap from the Gencode GTF: 
-   o	- bedtools intersect -a "/mnt/c/Users/Uma/Documents/Macbook/LabWork/RiboPy/ribo_analysis/gencode_cds.gtf" -b "/mnt/c/Users/Uma/Documents/Macbook/LabWork/RiboPy/ribo_analysis/ltdstart_bed.bed" > “/mnt/c/Users/Uma/Documents/Macbook/LabWork/RiboPy/ribo_analysis/gtf_overlap.txt”
+   o	- bedtools intersect -a "_path_/gencode_cds.gtf" -b "_path_/ltdstart_bed.bed" > “_path_/gtf_overlap.txt”
 • To get rows of overlap from the uORF BED: 
-   o	 - bedtools intersect -u -a "/mnt/c/Users/Uma/Documents/Macbook/LabWork/RiboPy/ribo_analysis/ ltdstart_bed.bed " -b "/mnt/c/Users/Uma/Documents/Macbook/LabWork/RiboPy/ribo_analysis/gencode_cds.gtf" > "/mnt/c/Users/Uma/Documents/Macbook/LabWork/RiboPy/ribo_analysis/uorf_overlap.txt"
+   o	 - bedtools intersect -u -a "_path_/ltdstart_bed.bed " -b "_path_/gencode_cds.gtf" > "_path_/uorf_overlap.txt"
 
  ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 **uorf_reads_psite.py**
