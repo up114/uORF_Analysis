@@ -73,9 +73,14 @@ Data files:
     - Genetic sequences should be preceded with gene information formatted as: *>**ENSMUST00000070533.4**|ENSMUSG00000051951.5|OTTMUSG00000026353.2|OTTMUST00000065166.1|**Xkr4-201**|Xkr4|3634|**UTR5:1-150**|**CDS:151-2094**|UTR3:2095-3634|*
     - Sequences in CAPITAL LETTERS
     - like *appris_mouse_v2_selected.fa.gz*
-
+- input sequences file:
+    - in csv format
+    - The input transcript pos table is seperated by comma. The input sequences file does not need to be edited if run through the rest of the pipeline. An example format of input file:
+       - Gene,Start,Transcript,Stop
+       - 1110012L19Rik,434,ENSMUST00000053981.5,434
+       - 1110012L19Rik,768,ENSMUST00000053981.5,768
+       - 1110012L19Rik,981,ENSMUST00000053981.5,981
 Notes: This script converts the uORF transcript coordinates to genomic coordinates. 
-
  ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 **Running the genomic overlap comparison**
 
