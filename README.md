@@ -14,9 +14,9 @@ Data files required
     - like *appris_mouse_v2_selected.fa.gz*
 
 Notes:
-The file with all of the uORF candidates can be found in Data Files > ltdstart_uorf_no_overlap.csv.
+The file with all of the uORF candidates can be found in Data Files > ltdstart_uorf.csv.
 
-ltdstart_uorf_no_overlap.csv: 
+ltdstart_uorfs.csv: 
 -   Mouse APPRIS transcript
 -	Start: ["ATG", "ACG", "ATT", "CTG", "GTG", "TTG"]
 -	Stop: ["TAA", "TGA", "TAG"]
