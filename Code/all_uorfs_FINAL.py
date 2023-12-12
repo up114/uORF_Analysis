@@ -21,8 +21,9 @@ def add_dic(key, value, dict):
 # find indexes of substrings in a string
 def find_multiple_substrings(string, substrings):
     pattern = '|'.join(map(re.escape, substrings))
+    pattern = f'(?=({pattern}))'  # Add a positive lookahead assertion
     matches = re.finditer(pattern, string)
-    return [match.start() for match in matches]
+    return [match.start(1) for match in matches]
 
 # find all uORFs in APPRIS
 def find_uORFS( min, max, sequence ) :
