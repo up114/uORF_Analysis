@@ -102,10 +102,11 @@ def get_region_reads(ribo_object, region, mmin, mmax, experiment) :
 def uorf_reads(database, transcripts):
     os.chdir('/scratch/09369/umapaul/data') #EDIT
 
-    genes = pd.read_csv(transcripts, sep=',', header=None)[0].values.tolist()
-    starts = pd.read_csv(transcripts, sep=',', header=None)[1].values.tolist()
-    stops = pd.read_csv(transcripts, sep=',', header=None)[2].values.tolist()
-
+    transcript_df = pd.read_csv(transcripts)
+    genes = transcript_df["Gene"].values.tolist()
+    starts = transcript_df["Start"].values.tolist()
+    stops = transcript_df["Stop"].values.tolist()
+    
     study_dict, type_dict = study_folder(database)
     gene_reads = {}
     offset_dic = []
