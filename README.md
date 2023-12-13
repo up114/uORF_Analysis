@@ -80,7 +80,9 @@ Data files:
        - 1110012L19Rik,434,ENSMUST00000053981.5,434
        - 1110012L19Rik,768,ENSMUST00000053981.5,768
        - 1110012L19Rik,981,ENSMUST00000053981.5,981
+         
 Notes: This script converts the uORF transcript coordinates to genomic coordinates. 
+
  ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 **Running the genomic overlap comparison**
 
@@ -106,7 +108,7 @@ Run the following in Linux (I used Ubuntu):
 - To get rows of overlap from the uORF BED: 
    -	 bedtools intersect -u -a "_path_/ltdstart_bed.bed" -b "_path_/gencode_cds.gtf" > "_path_/uorf_overlap.txt"    
 
-Note: These functions will report if at least one overlap is found. To also report the number of bp that overlap, add -wo to the options
+Note: These functions will report if at least one overlap is found. To also report the number of bp that overlap, add "-wo" to the options
 
  ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 **uorf_reads_psite.py**
