@@ -29,7 +29,6 @@ If you want to change the start codons, stop codons, or length range, you will n
 
 Data files:
 - A .ribo ribosome profiling file with coverage data
-    - Example .ribo files found in **Data Files**
 
 Notes: 
 This is the program for compiling the reads for all of the uORFs, and the code to run it is found at the bottom of the program file. Make sure to update the ribo_path variable. To run the function, you have two arguments: 
