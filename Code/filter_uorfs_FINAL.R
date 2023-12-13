@@ -1,16 +1,8 @@
-library(ggplot2)
-library(tidyverse)
-library(readr)
-library(lessR)
-library(psych)
-library(dplyr)
-library(ggpubr)
-library(broom)
-library(AICcmodavg)
-library(car)
+
 
 ## function to filter uorfs by reads, start codon, and overlap
-filter_uorfs <- function(finput, foutput) {
+filter_uorfs_FINAL <- function(finput, foutput) {
+  
   output <- read_csv(finput, col_names = TRUE)
   output <- na.omit(output)
   exp = colnames(output)[startsWith(colnames(output), "Experiment")]# NEED TO CHANGE
@@ -32,8 +24,7 @@ filter_uorfs <- function(finput, foutput) {
     stops = unique(subset_gene$'Actual Stop')
     for (stop in stops) {
       subset_frame = subset_gene[subset_gene$'Actual Stop' == stop, ]
-      # for(frame in unique(subset_stop$in_frame)) {
-      #   subset_frame = subset_stop[subset_stop$in_frame == frame, ]
+
         filtered_df <- subset_frame %>%
           group_by(across(all_of(exp))) %>%
           filter(Start == max(Start))
@@ -68,4 +59,9 @@ filter_uorfs <- function(finput, foutput) {
 }
 
 # TO RUN:
-filter_uorfs("INPUT.csv", "OUTPUT.csv")
+# load libraries
+library(ggplot2)
+library(tidyverse)
+library(readr)
+# run function
+filter_uorfs_FINAL("Sp110_reads.csv", "Sp110_filter.csv")
