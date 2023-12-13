@@ -88,6 +88,7 @@ Data files:
 - GENCODE GTF file:
     - Transcript names must match the version in the transcript file
     - for *appris_mouse_v2_selected.fa.gz,* use GENCODE vM25 (found at https://www.gencodegenes.org/mouse/release_M25.html)
+    - **Please note that you need to run the original GTF file through the make_cds_file() function in transcript2genome.py to filter the GTF file to only contain CDS entries**
 - Transcript file:
     - in Fasta GZ file format
     - Genetic sequences should be preceded with gene information formatted as: *>**ENSMUST00000070533.4**|ENSMUSG00000051951.5|OTTMUSG00000026353.2|OTTMUST00000065166.1|**Xkr4-201**|Xkr4|3634|**UTR5:1-150**|**CDS:151-2094**|UTR3:2095-3634|*
@@ -95,7 +96,7 @@ Data files:
     - like *appris_mouse_v2_selected.fa.gz*
       
 Notes: The genomic comparison only needs to be run on the nonoverlapping uORFs, so filter the uORFs before running the following steps. After converting the uORFs to genomic coordinates, you will need to convert the uORF genomic coordinates into a bed formatted file. I used Notepad++ to do so, and an example BED file can be found in the Data Files > ltdstart_bed.bed. 
-Finally, overlap between GENCODE CDS regions and the identified uORFs can be found using bedtools. The instructions are as follows:
+Finally, overlap between GENCODE CDS regions and the identified uORFs can be found using bedtools. Please run the make_cds_file() function in transcript2genome.py to filter the GTF file to only contain CDS entries. The instructions are as follows:
 • Activate a Conda environment with bedtools - see bedtools_env.yml: 
    o	conda activate bedtools_env
 Run the following in Linux (I used Ubuntu):
