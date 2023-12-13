@@ -38,7 +38,9 @@ This is the program for compiling the reads for all of the uORFs, and the code t
  ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 **filter_uorfs_FINAL.R**
 
-Notes: This program filters the reads results by CPM and start codon (with an ATG preference), and this program is run in _RStudio_. The You will have two arguments:
+Notes: This program filters the reads results by CPM and start codon (with an ATG preference), and this program is run in _RStudio_. You will have two arguments:
+1) The input CSV file name
+2) The output CSV file name
 
  ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 **check_periodicity.py**
