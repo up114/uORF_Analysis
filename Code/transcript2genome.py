@@ -18,6 +18,18 @@ def add_dic(key, value, dict):
     else:
         dict[key] = [value]
 
+# Read the GENCODE GTF file and filter for CDS entries
+# input:
+#    gtf_file: orginal GTF file
+#    cds_output: name of output GTF file with only CDS rows
+def write_cds_file(gtf_file, cds_output) :
+    with open(gtf_file, 'r') as gtf_file_r:
+        filtered_gtf_lines = [line for line in gtf_file_r if '\tCDS' in line]
+
+    # Save the filtered CDS entries to a new file
+    with open(cds_output, 'w') as filtered_gtf_file:
+        filtered_gtf_file.writelines(filtered_gtf_lines)
+
 # convert transcript coordinates to genomic coordinates
 # inputs:
 #    csv_file: file with uORF transcript coordinates; must have a "Transcript", "Start", "Stop" column
