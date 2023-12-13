@@ -95,15 +95,18 @@ Data files:
     - Sequences in CAPITAL LETTERS
     - like *appris_mouse_v2_selected.fa.gz*
       
-Notes: The genomic comparison only needs to be run on the nonoverlapping uORFs, so filter the uORFs before running the following steps. After converting the uORFs to genomic coordinates, you will need to convert the uORF genomic coordinates into a bed formatted file. I used Notepad++ to do so, and an example BED file can be found in the Data Files > ltdstart_bed.bed. 
-Finally, overlap between GENCODE CDS regions and the identified uORFs can be found using bedtools. Please run the make_cds_file() function in transcript2genome.py to filter the GTF file to only contain CDS entries. The instructions are as follows:
-• Activate a Conda environment with bedtools - see bedtools_env.yml: 
-   o	conda activate bedtools_env
+Notes: The genomic comparison only needs to be run on the nonoverlapping uORFs, so filter the uORFs before running the following steps. After converting the uORFs to genomic coordinates, you will need to convert the uORF genomic coordinates into a BED formatted file. I used Notepad++ to do so, and an example BED file can be found in the Data Files > ltdstart_bed.bed. 
+Finally, overlap between GENCODE CDS regions and the identified uORFs can be found using bedtools. Run the make_cds_file() function in transcript2genome.py to filter the GTF file to only contain CDS entries. The instructions are as follows:
+
+- Activate a Conda environment with bedtools - see bedtools_env.yml: 
+     - conda activate bedtools_env
 Run the following in Linux (I used Ubuntu):
-• To get rows of overlap from the Gencode GTF: 
-   o	- bedtools intersect -a "_path_/gencode_cds.gtf" -b "_path_/ltdstart_bed.bed" > “_path_/gtf_overlap.txt”
-• To get rows of overlap from the uORF BED: 
-   o	 - bedtools intersect -u -a "_path_/ltdstart_bed.bed " -b "_path_/gencode_cds.gtf" > "_path_/uorf_overlap.txt"
+- To get rows of overlap from the Gencode GTF: 
+   -	 bedtools intersect -u -a "_path_/gencode_cds.gtf" -b "_path_/ltdstart_bed.bed" > "_path_/gtf_overlap.txt"
+- To get rows of overlap from the uORF BED: 
+   -	 bedtools intersect -u -a "_path_/ltdstart_bed.bed" -b "_path_/gencode_cds.gtf" > "_path_/uorf_overlap.txt"    
+
+Note: These functions will report if at least one overlap is found. To also report the number of bp that overlap, add -wo to the options
 
  ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 **uorf_reads_psite.py**
