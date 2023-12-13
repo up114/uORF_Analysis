@@ -106,4 +106,4 @@ def write_lab_output(transcripts, outfile) :
     out_file.to_csv(outfile, index = False)
 
 # TO RUN:
-write_lab_output("neural_acceptedNEW.csv", "neural_completeNEW.csv")
+write_lab_output("INPUT.csv", "OUTPUT.csv")
