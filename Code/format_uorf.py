@@ -78,7 +78,7 @@ def write_lab_output(transcripts, outfile) :
     transcript_df = pd.read_csv(transcripts)
     genes = transcript_df["Gene"].values.tolist()
     starts = transcript_df["Start"].values.tolist()
-    stops = transcript_df["Stop"].values.tolist()
+    stops = transcript_df["Actual Stop"].values.tolist()
 
     cds, trans_names = find_CDS(genes)
 
@@ -97,6 +97,8 @@ def write_lab_output(transcripts, outfile) :
         add_dic("Sequence", nt, output)
         add_dic("Complete Sequence", comp_seq, output)
         add_dic("AA Sequence", translate_sequence(nt), output)
+        add_dic("Length", stop-start, output)
+        add_dic("AA Length", (stop-start)%3, output)
         add_dic("CDS Start", cds[gene][0], output)
         add_dic("CDS Stop", cds[gene][1], output)
 
