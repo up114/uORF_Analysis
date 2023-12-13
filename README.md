@@ -118,7 +118,8 @@ Data files:
     - should include study name, experiment name, and cell line columns - make sure to edit the specific column names in the script
     - like *mouse_filtered_complete.csv*
  - uORF CSV file
-    - you will need to reformat your file to be a CSV without a header. Example formatted file:
+    - you will need to reformat your file to only contain genes, and start & stop transcript coordinates (to avoid an extremely large output). Example formatted file:
+       - Gene,Start,Stop
        - 1110012L19Rik,434,512
        - 1110012L19Rik,101,113
        - 1110012L19Rik,981,1002
