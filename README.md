@@ -114,9 +114,14 @@ Note: These functions will report if at least one overlap is found. To also repo
 **uorf_reads_psite.py**
 
 Data files:
-- Studies csv file for RiboBase
+- Studies CSV file for RiboBase
     - should include study name, experiment name, and cell line columns - make sure to edit the specific column names in the script
     - like *mouse_filtered_complete.csv*
+ - uORF CSV file
+    - you will need to reformat your file to be a CSV without a header. Example formatted file:
+       - 1110012L19Rik,434,512
+       - 1110012L19Rik,101,113
+       - 1110012L19Rik,981,1002
 
 Notes: You will need to edit the file to include the correct paths in your TACC environment.  To edit, check all places where file paths are mentioned in the uorf_reads() function; I have put #EDIT comments next to these lines. The function called is located at the bottom of the scripts and requires four inputs:
 1)	Database: The csv containing the studies to be examined
