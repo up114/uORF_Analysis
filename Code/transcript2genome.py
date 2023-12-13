@@ -1,3 +1,4 @@
+#### CONVERTS TRANSCRIPT COORDINATES TO GENOMIC COORDINATES
 import ribopy
 import ribopy.rnaseq
 import numpy as np
@@ -10,8 +11,6 @@ import copy
 import gzip
 import matplotlib.pyplot as plt
 
-
-
 # add key-value pair to a dictionary
 def add_dic(key, value, dict):
     if key in dict.keys():
@@ -20,9 +19,14 @@ def add_dic(key, value, dict):
         dict[key] = [value]
 
 # convert transcript coordinates to genomic coordinates
-def transcript2genome(csv_file, gtf_file, appris_gz) :
+# inputs:
+#    csv_file: file with uORF transcript coordinates; must have a "Transcript", "Start", "Stop" column
+#    gtf_file: genome GTF file
+#    transcript_gz: transcriptome fasta GZ file
+#    outfile: name of output csv file
+def transcript2genome(csv_file, gtf_file, transcript_gz, outfile) :
     # load appris file
-    with gzip.open(appris_gz, 'rb') as f:
+    with gzip.open(transcript_gz, 'rb') as f:
         appris_file = str(f.read())
 
     output = {}
@@ -49,7 +53,7 @@ def transcript2genome(csv_file, gtf_file, appris_gz) :
         ind = appris_file.find(transcript)
         appris_length = int(appris_file[ind: appris_file.find("\\n", ind)].split("|")[6])
 
-        # check if array length match; if not, leave empty
+        # check if array length match; if not, print the transcript and leave row empty
         if(len(exon_array) != appris_length) :
             print(transcript, len(exon_array), appris_length)
             add_dic("Chromosome", None, output)
@@ -58,18 +62,20 @@ def transcript2genome(csv_file, gtf_file, appris_gz) :
             add_dic("Direction", None, output)
 
         else:
+            # for positive strands
             add_dic("Chromosome", gene_df.iloc[0, 0], output)
             if(gene_df.iloc[0, 6] == "+") :
                 add_dic("Start", exon_array[int(start)], output) 
                 add_dic("Stop", exon_array[int(stop)] - 1, output)
                 add_dic("Direction", "+", output)
-
+            # for negative strands
             elif(gene_df.iloc[0, 6] == "-") :
                 add_dic("Start", exon_array[-int(stop) + 1] - 1, output)
                 add_dic("Stop", exon_array[-int(start)] - 1, output)
                 add_dic("Direction", "-", output)
 
+    # add columns to original data and output CSV
     out_file = pd.concat([csv_df, pd.DataFrame.from_dict(output)], axis = 1)
-    out_file.to_csv("ltdstart_genomic.csv", index = False)
+    out_file.to_csv(outfile, index = False)
 
-transcript2genome("ltdstart_output_lab.csv", "gencode.vM25.annotation.gtf" , "appris_mouse_v2_selected.fa.gz")
+transcript2genome("ltdstart_output_lab.csv", "gencode.vM25.annotation.gtf" , "appris_mouse_v2_selected.fa.gz", "OUTPUT.csv")
