@@ -59,30 +59,29 @@ def find_uORFS( min, max, sequence ) :
                         add_dic("Start", start, uorf_list)
                         add_dic("Stop", stop, uorf_list)
                         add_dic("Start Codon", current[start:start + 3], uorf_list)
-                        add_dic("CDS stop", CDS_stop, uorf_list)
 
                         if stop > CDS_start :
                             if stop == CDS_stop:
                                 add_dic("Gene", gene, uorf_list_no_overlap)
                                 add_dic("Start", start, uorf_list_no_overlap)
                                 add_dic("Stop", CDS_start - 1, uorf_list_no_overlap)
-                                add_dic("Start Codon", current[start:start + 3], uorf_list_no_overlap)
                                 add_dic("Actual Stop", stop, uorf_list_no_overlap)
+                                add_dic("Start Codon", current[start:start + 3], uorf_list_no_overlap)
                                 add_dic("Type", "extension", uorf_list_no_overlap)
 
                             else:
                                 add_dic("Gene", gene, uorf_list_no_overlap)
                                 add_dic("Start", start, uorf_list_no_overlap)
                                 add_dic("Stop", CDS_start - 1, uorf_list_no_overlap)
-                                add_dic("Start Codon", current[start:start + 3], uorf_list_no_overlap)
                                 add_dic("Actual Stop", stop, uorf_list_no_overlap)
+                                add_dic("Start Codon", current[start:start + 3], uorf_list_no_overlap)
                                 add_dic("Type", "overlapping", uorf_list_no_overlap)
                         else :
                             add_dic("Gene", gene, uorf_list_no_overlap)
                             add_dic("Start", start, uorf_list_no_overlap)
                             add_dic("Stop", stop, uorf_list_no_overlap)
-                            add_dic("Start Codon", current[start:start + 3], uorf_list_no_overlap)
                             add_dic("Actual Stop", stop, uorf_list_no_overlap)
+                            add_dic("Start Codon", current[start:start + 3], uorf_list_no_overlap)
                             add_dic("Type", "nonoverlapping", uorf_list_no_overlap)
                     break
         file_start = next_file_start
