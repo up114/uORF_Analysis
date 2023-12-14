@@ -79,6 +79,8 @@ def write_lab_output(transcripts, outfile) :
     genes = transcript_df["Gene"].values.tolist()
     starts = transcript_df["Start"].values.tolist()
     stops = transcript_df["Actual Stop"].values.tolist()
+    transcript_df = transcript_df.drop("Stop", axis='columns')
+    transcript_df = transcript_df.rename(columns={'Actual Stop': 'Stop'})
 
     cds, trans_names = find_CDS(genes)
 
@@ -102,7 +104,7 @@ def write_lab_output(transcripts, outfile) :
         add_dic("CDS Start", cds[gene][0], output)
         add_dic("CDS Stop", cds[gene][1], output)
 
-    out_file = pd.concat([pd.read_csv(transcripts), pd.DataFrame.from_dict(output)], axis = 1)
+    out_file = pd.concat(transcript_df, pd.DataFrame.from_dict(output)], axis = 1)
     out_file.to_csv(outfile, index = False)
 
 # TO RUN:
