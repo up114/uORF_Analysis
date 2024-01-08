@@ -132,3 +132,18 @@ Notes: You will need to edit the file to include the correct paths in your TACC 
 4)	Outfile_offset: the path for the output csv file with the p-site offsets for each experiment
 
 To run: Edit the sbatch script in Code > sbatch.sh to include the correct path for your uorf_reads_psite.py file and the correct conda environment. Then, run the job in TACC (I use LS6), using the command: sbatch sbatch.sh. 
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+**Testing**
+
+The functions were tested by comparing the output to manual testing results. The testing was performing on one gene - Sp110, and it was ensured that all observed and expected outputs matched. An overview of the tests conducted:
+- Manual comparison to verify that all possible Sp110 uORFs were identified
+- Comparison of the p-site offset to expected values based on metagene plots in ribograph
+- Manual comparison to ensure that coverage numbers were accurate, along with checking with coverage data in ribograph
+- Comparison of expected vs. observed results from the reads filtering
+- Comparison of periodicity results between my code and another chi-square with FDR program I wrote in R
+- Manual check that nucleotide and Kozak sequences were correctly identified
+- Comparison of genomic coordinate results to UCSC BLAT
+
+
