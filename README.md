@@ -112,26 +112,26 @@ Run the following in Linux (I used Ubuntu):
 Note: These functions will report if at least one overlap is found. To also report the number of bp that overlap, add "-wo" to the options
 
  ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-**uorf_reads_psite.py**
+**uorf_reads_ribobase.py**
 
 Data files:
 - Studies CSV file for RiboBase
     - should include study name, experiment name, and cell line columns - make sure to edit the specific column names in the script
     - like *mouse_filtered_complete.csv*
  - uORF CSV file
-    - you will need to reformat your file to only contain genes, and start & stop transcript coordinates (to avoid an extremely large output). Example formatted file:
-       - Gene,Start,Stop
-       - 1110012L19Rik,434,512
-       - 1110012L19Rik,101,113
-       - 1110012L19Rik,981,1002
+    - you will need to reformat your file to only contain genes,  start & stop transcript coordinates, and CDS start&stop coordinates. Example formatted file:
+       - Gene,Start,Stop,CDS Start,CDS Stop
+       - 1110012L19Rik,434,512,1109,1678
+       - 1110012L19Rik,101,113,1109,1678
+       - 1110012L19Rik,981,1002,1109,1678
 
 Notes: You will need to edit the file to include the correct paths in your TACC environment.  To edit, check all places where file paths are mentioned in the uorf_reads() function; I have put #EDIT comments next to these lines. The function called is located at the bottom of the scripts and requires four inputs:
 1)	Database: The csv containing the studies to be examined
-2)	Transcripts: a csv file with the transcript coordinate of the uORFs; find an example of the format of the file in the Data Files > ltdstart_gene_codons.csv (this csv should have no header)
+2)	Transcripts: a csv file with the transcript coordinate of the uORFs; find an example of the format of the file in the Data Files > gene_codons.csv 
 3)	Outfile: the path for the output csv file with the Ribobase reads
 4)	Outfile_offset: the path for the output csv file with the p-site offsets for each experiment
 
-To run: Edit the sbatch script in Code > sbatch.sh to include the correct path for your uorf_reads_psite.py file and the correct conda environment. Then, run the job in TACC (I use LS6), using the command: sbatch sbatch.sh. 
+To run: Edit the sbatch script in Code > sbatch.sh to include the correct path for your uorf_reads_ribobase.py file and the correct conda environment. Then, run the job in TACC (I use LS6), using the command: sbatch sbatch.sh. 
 
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
